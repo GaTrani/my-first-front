@@ -1,0 +1,11 @@
+.form-floating label {
+  color: #6c757d; /* Cor inicial do texto */
+  transition: all 0.3s ease-in-out; /* Suaviza o movimento */
+}
+
+.form-floating .form-control:focus ~ label,
+.form-floating .form-control:not(:placeholder-shown) ~ label {
+  color: #007bff; /* Cor do texto ao focar */
+  font-size: 0.85rem;
+  transform: translateY(-10px); /* Move o texto para cima */
+}

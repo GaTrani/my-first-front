@@ -1,0 +1,52 @@
+/* Layout principal */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa toda a altura da tela */
+}
+
+/* Cabeçalho superior */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff; /* Azul padrão */
+  color: white;
+  height: 60px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header .top-left {
+  display: flex;
+  align-items: center;
+}
+
+.header .top-left .site-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.header .top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Área principal */
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Conteúdo principal */
+.content-main {
+  flex: 1;
+  background-color: #f8f9fa; /* Cinza claro */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+

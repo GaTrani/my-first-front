@@ -1,0 +1,106 @@
+/* Estilo geral da Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  overflow-y: none;
+  transition: width 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 20px;
+}
+
+/* Links principais */
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.sidebar-menu a:hover {
+  color: #00f2fe;
+  /* Cor de destaque */
+}
+
+/* Botões de menu com submenu */
+.menu-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  text-align: left;
+  /* padding: 10px 0; */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.menu-button:hover,
+.menu-button.active {
+  color: #00f2fe;
+}
+
+.menu-item {
+  position: relative;
+}
+
+/* Submenu */
+.submenu {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-left: 2px solid #00f2fe;
+  /* Linha decorativa para submenu */
+}
+
+.submenu li {
+  margin-bottom: 10px;
+}
+
+.submenu a {
+  font-size: 0.9rem;
+}
+
+/* Transição suave para submenu */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.menu-item .submenu {
+  max-height: 300px;
+  /* Altura suficiente para o submenu expandido */
+}
+
+/* Sidebar oculta por padrão em telas pequenas */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 20px;
+    transition: width 0.3s ease, padding 0.3s ease;
+  }
+
+  .sidebar.open {
+    width: 200px;
+    padding: 20px;
+  }
+
+  .sidebar-menu {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar.open .sidebar-menu {
+    opacity: 1;
+  }
+}

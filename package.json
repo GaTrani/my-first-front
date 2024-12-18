@@ -1,5 +1,5 @@
 {
-  "name": "meu-primeiro-front",
+  "name": "study-front",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "meu-primeiro-front": "file:",
+    "bootstrap": "^5.3.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.0.2",
+    "react-toastify": "^11.0.1",
+    "study-front": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

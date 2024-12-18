@@ -1,9 +1,13 @@
 import { useState } from 'react'
-
+import AppRouter from './AppRouter'
+import './App.css'
 
 export default function App() {
+
   return (
-  <h1>Hello World</h1>
-)
+    <div className='container'>
+      <AppRouter />
+    </div>
+  )
 }
 
