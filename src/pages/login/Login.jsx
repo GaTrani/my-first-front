@@ -16,10 +16,9 @@ export default function Login() {
     };
 
     // Função para enviar o formulário
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Simulando validação de login
         if (!formData.email || !formData.password) {
             toast.error("Preencha todos os campos!", {
                 position: "top-center",
@@ -27,14 +26,24 @@ export default function Login() {
             return;
         }
 
-        if (formData.email === "admin@example.com" && formData.password === "123456") {
+        try {
+            const response = await axios.post("http://localhost:8080/auth/login", formData);
+
+            // Armazenar o token JWT no localStorage
+            localStorage.setItem("token", response.data.token);
+
             toast.success("Login realizado com sucesso!", {
                 position: "top-center",
             });
-        } else {
-            toast.error("Credenciais inválidas. Tente novamente.", {
-                position: "top-center",
-            });
+
+            // Redirecionar para outra página (exemplo: rota protegida)
+            window.location.href = "/welcome";
+
+        } catch (error) {
+            toast.error(
+                error.response?.data?.message || "Erro ao realizar login. Tente novamente.",
+                { position: "top-center" }
+            );
         }
     };
 
