@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../components/Auth/AuthContext";
 
 export default function Login() {
     const [formData, setFormData] = useState({
@@ -9,13 +12,14 @@ export default function Login() {
         password: "",
     });
 
-    // Atualiza os dados do formulário
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Função para enviar o formulário
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -27,17 +31,24 @@ export default function Login() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/login", formData);
+            const response = await axios.post("http://localhost:8080/auth/login", formData, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
 
-            // Armazenar o token JWT no localStorage
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", response.data.name);
+
+            login();
 
             toast.success("Login realizado com sucesso!", {
                 position: "top-center",
             });
 
-            // Redirecionar para outra página (exemplo: rota protegida)
-            window.location.href = "/welcome";
+            if (response.status === 200) {
+                navigate('/home');
+            }
 
         } catch (error) {
             toast.error(

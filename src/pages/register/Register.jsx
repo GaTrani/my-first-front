@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Importa os estilos do Toastify
 import "./Register.css";
+import axios from "axios";
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -19,40 +20,69 @@ export default function Register() {
         setFormData({ ...formData, [name]: value });
     };
 
-    // Valida e submete o formulário
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Tentando submeter o formulário com os dados:", formData);
+
         const newErrors = validateForm();
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            // Exibe mensagem de sucesso usando React-Toastify
-            toast.success("Cadastro realizado com sucesso!", {
-                position: "top-right",
-                autoClose: 3000, // Fecha automaticamente após 3 segundos
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "light",
-            });
-            console.log("Dados enviados:", formData);
+            try {
+                console.log("Enviando requisição para o backend...");
+                const response = await axios.post(
+                    'http://localhost:8080/auth/register',
+                    {
+                        name: formData.name,
+                        email: formData.email,
+                        password: formData.password,
+                    }
+                    /* {
+                        headers: {
+                            "Content-Type": "application/json",
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                    } */
+                );
 
-            // Resetar o formulário após cadastro
-            setFormData({
-                name: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-            });
+                console.log("Resposta do backend:", response.data);
+                toast.success("Cadastro realizado com sucesso!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light",
+                });
+
+                // Resetar o formulário após cadastro
+                setFormData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    confirmPassword: "",
+                });
+            } catch (error) {
+                console.error("Erro durante a requisição:", error);
+                console.error("Resposta do backend (se disponível):", error.response);
+
+                const message =
+                    error.response?.data?.message || "Erro ao realizar o cadastro.";
+                toast.error(message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
         } else {
-            // Exibe mensagem de erro genérico
+            console.warn("Erros de validação encontrados:", newErrors);
             toast.error("Corrija os erros antes de continuar.", {
                 position: "top-right",
                 autoClose: 3000,
             });
         }
     };
+
 
     // Valida os campos do formulário
     const validateForm = () => {
