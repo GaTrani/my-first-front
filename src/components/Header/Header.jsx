@@ -29,7 +29,7 @@ export default function Header({ userName, avatarUrl }) {
 
     return (
         <div className="header-user">
-            <span>Olá, {userName}</span>
+            <span>Olá, {localStorage.getItem("username")}</span>
             <img
                 src={avatarUrl}
                 alt="Avatar"

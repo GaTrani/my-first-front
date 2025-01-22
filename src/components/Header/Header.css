@@ -25,6 +25,11 @@
     z-index: 1000;  /* Certifique-se de que o menu fique acima de outros elementos */
 }
 
+.avatar:hover {
+    transform: scale(1.1);  /* Pequeno efeito de zoom ao passar o mouse */
+}
+
+
 .dropdown-menu ul {
     list-style: none;
     padding: 0;
